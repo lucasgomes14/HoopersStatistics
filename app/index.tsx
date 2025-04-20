@@ -6,7 +6,7 @@ const styles = StyleSheet.create({
     container: {
         justifyContent: "flex-start",
         alignItems: "center",
-        backgroundColor: "#696969",
+        backgroundColor: "#1a1e21",
         height: "100%",
     }
 });

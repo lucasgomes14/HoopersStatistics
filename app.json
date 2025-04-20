@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "HoopersStatistics",
-    "slug": "HoopersStatistics",
+    "slug": "statistic",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
@@ -13,7 +13,7 @@
       "supportsTablet": true
     },
     "android": {
-      "package" : "com.lucasgomes.hoopersstatistics",
+      "package": "com.lucasgomes.hoopersstatistics",
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/adaptive-icon.png",
         "backgroundColor": "#ffffff"

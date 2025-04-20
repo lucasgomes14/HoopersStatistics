@@ -8,7 +8,7 @@ const styles = StyleSheet.create({
     },
     text: {
         fontSize: 30,
-        color: "#FF8C00",
+        color: "#e9531b",
         fontFamily: "Luckiestguy",
     }
 })
