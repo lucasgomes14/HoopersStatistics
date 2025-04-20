@@ -1,4 +1,4 @@
-import {FlatList, StyleSheet, Text, TouchableOpacity, View} from "react-native";
+import {SectionList, StyleSheet, Text, TouchableOpacity, View} from "react-native";
 import InputPlayer from "@/components/InputPlayer";
 import {useState} from "react";
 import AntDesign from '@expo/vector-icons/AntDesign';
@@ -96,7 +96,15 @@ const styles = StyleSheet.create({
         height: 1,
         backgroundColor: 'rgba(255, 255, 255, 0.1)',
         marginVertical: 6,
-    }    
+    },
+    sectionTitle: {
+        fontFamily: "Roboto-slab",
+        color: "white",
+        fontSize: 22,
+        fontWeight: "bold",
+        marginLeft: 16,
+        marginTop: 16
+    },
 })
 
 const Item = ({
@@ -179,6 +187,24 @@ const Item = ({
 const ListComponent = () => {
     const [players, setPlayers] = useState<Player[]>([]);
 
+    const getSections = () => {
+        const sorted = [...players].sort((a, b) => a.name.localeCompare(b.name));
+
+        const grouped = sorted.reduce((acc, player) => {
+            const firstLetter = player.name[0].toUpperCase();
+            if (!acc[firstLetter]) {
+                acc[firstLetter] = [];
+            }
+            acc[firstLetter].push(player);
+            return acc;
+        }, {} as Record<string, Player[]>);
+
+        return Object.keys(grouped).sort().map(letter => ({
+            title: letter,
+            data: grouped[letter],
+        }));
+    };
+
     const addPlayer = (name: string) => {
         const newId = players.length === 0 ? 1 : Math.max(...players.map(p => p.id)) + 1;
         const newPlayer: Player = {
@@ -240,10 +266,10 @@ const ListComponent = () => {
 
     return (
         <View style={styles.container}>
-            <FlatList
-                data={players}
+            <SectionList
+                sections={getSections()}
                 keyExtractor={(item) => item.id.toString()}
-                renderItem={({ item }) => (
+                renderItem={({item}) => (
                     <Item
                         player={item}
                         onRemove={handleRemove}
@@ -252,10 +278,14 @@ const ListComponent = () => {
                         plusAssist={plusAssist}
                         minusAssist={minusAssist}
                         plusRebound={plusRebound}
-                        minusRebound={minusRebound}
-                    />
+                        minusRebound={minusRebound} />
                 )}
-                ListHeaderComponent={() => <InputPlayer onAdd={addPlayer} />}
+                renderSectionHeader={({ section: { title } }) => (
+                    <Text style={styles.sectionTitle}>
+                        {title}
+                    </Text>
+                )}
+                ListHeaderComponent={() => <InputPlayer onAdd={addPlayer} /> }
                 ListEmptyComponent={() => <Text style={styles.emptyItem}>Nenhum jogador cadastrado!</Text>}
                 contentContainerStyle={{ paddingBottom: 100 }}
             />
