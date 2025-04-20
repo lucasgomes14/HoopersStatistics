@@ -1,6 +1,7 @@
-import {SectionList, StyleSheet, Text, TouchableOpacity, View} from "react-native";
+import {FlatList, SectionList, StyleSheet, Text, TouchableOpacity, View} from "react-native";
+import { Picker } from '@react-native-picker/picker';
 import InputPlayer from "@/components/InputPlayer";
-import {useState} from "react";
+import {useMemo, useState} from "react";
 import AntDesign from '@expo/vector-icons/AntDesign';
 import Feather from '@expo/vector-icons/Feather';
 
@@ -105,6 +106,13 @@ const styles = StyleSheet.create({
         marginLeft: 16,
         marginTop: 16
     },
+    filter: {
+        backgroundColor: "#2c2929",
+        marginHorizontal: 10,
+        borderRadius: 15,
+        color: "#FF8C00",
+        marginTop: 5,
+    },
 })
 
 const Item = ({
@@ -186,24 +194,24 @@ const Item = ({
 
 const ListComponent = () => {
     const [players, setPlayers] = useState<Player[]>([]);
+    const [orderBy, setOrderBy] = useState<"name" | "points" | "assist" | "rebound">("name");
 
-    const getSections = () => {
-        const sorted = [...players].sort((a, b) => a.name.localeCompare(b.name));
-
-        const grouped = sorted.reduce((acc, player) => {
-            const firstLetter = player.name[0].toUpperCase();
-            if (!acc[firstLetter]) {
-                acc[firstLetter] = [];
+    const sortedPlayers = useMemo(() => {
+        return [...players].sort((a, b) => {
+            switch (orderBy) {
+                case "name":
+                    return a.name.localeCompare(b.name);
+                case "points":
+                    return b.points - a.points; // ordem decrescente
+                case "assist":
+                    return b.assist - a.assist;
+                case "rebound":
+                    return b.rebound - a.rebound;
+                default:
+                    return 0;
             }
-            acc[firstLetter].push(player);
-            return acc;
-        }, {} as Record<string, Player[]>);
-
-        return Object.keys(grouped).sort().map(letter => ({
-            title: letter,
-            data: grouped[letter],
-        }));
-    };
+        });
+    }, [players, orderBy]);
 
     const addPlayer = (name: string) => {
         const newId = players.length === 0 ? 1 : Math.max(...players.map(p => p.id)) + 1;
@@ -266,10 +274,11 @@ const ListComponent = () => {
 
     return (
         <View style={styles.container}>
-            <SectionList
-                sections={getSections()}
+            <FlatList
+                data={sortedPlayers}
                 keyExtractor={(item) => item.id.toString()}
-                renderItem={({item}) => (
+                extraData={orderBy}
+                renderItem={({ item }) => (
                     <Item
                         player={item}
                         onRemove={handleRemove}
@@ -278,15 +287,30 @@ const ListComponent = () => {
                         plusAssist={plusAssist}
                         minusAssist={minusAssist}
                         plusRebound={plusRebound}
-                        minusRebound={minusRebound} />
+                        minusRebound={minusRebound}
+                    />
                 )}
-                renderSectionHeader={({ section: { title } }) => (
-                    <Text style={styles.sectionTitle}>
-                        {title}
-                    </Text>
+                ListHeaderComponent={() => (
+                    <View>
+                        <InputPlayer onAdd={addPlayer} />
+                        {players.length > 0 && (
+                            <Picker
+                                selectedValue={orderBy}
+                                onValueChange={(value) => setOrderBy(value)}
+                                style={styles.filter}
+                                dropdownIconColor="#FF8C00"
+                            >
+                                <Picker.Item label="Ordem alfabética" value="name" />
+                                <Picker.Item label="Pontos" value="points" />
+                                <Picker.Item label="Assistências" value="assist" />
+                                <Picker.Item label="Rebotes" value="rebound" />
+                            </Picker>
+                        )}
+                    </View>
                 )}
-                ListHeaderComponent={() => <InputPlayer onAdd={addPlayer} /> }
-                ListEmptyComponent={() => <Text style={styles.emptyItem}>Nenhum jogador cadastrado!</Text>}
+                ListEmptyComponent={() => (
+                    <Text style={styles.emptyItem}>Nenhum jogador cadastrado!</Text>
+                )}
                 contentContainerStyle={{ paddingBottom: 100 }}
             />
         </View>
