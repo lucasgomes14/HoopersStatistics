@@ -1,6 +1,33 @@
 import {StyleSheet, Text, TextInput, TouchableOpacity, View} from "react-native";
 import {useState} from "react";
 
+const InputPlayer = ({ onAdd }: { onAdd: (name: string) => void }) => {
+
+    const [player, setPlayer] = useState("")
+
+    const handleAdd = () => {
+        if (player === "") return;
+
+        onAdd(player);
+        setPlayer("");
+    }
+
+    return (
+        <View style={styles.container}>
+            <TextInput
+                style={styles.input}
+                onChangeText={newPlayer => setPlayer(newPlayer)}
+                placeholder={"Nome do jogador"}
+                placeholderTextColor={"#FF8C00"}
+                defaultValue={player}
+            />
+            <TouchableOpacity style={styles.button} onPress={handleAdd}>
+                <Text style={styles.plus}>+</Text>
+            </TouchableOpacity>
+        </View>
+    );
+}
+
 const styles = StyleSheet.create({
     container: {
         width: "100%",
@@ -33,32 +60,5 @@ const styles = StyleSheet.create({
         fontSize: 20,
     }
 })
-
-const InputPlayer = ({ onAdd }: { onAdd: (name: string) => void }) => {
-
-    const [player, setPlayer] = useState("")
-
-    const handleAdd = () => {
-        if (player === "") return;
-
-        onAdd(player);
-        setPlayer("");
-    }
-
-    return (
-        <View style={styles.container}>
-            <TextInput
-                style={styles.input}
-                onChangeText={newPlayer => setPlayer(newPlayer)}
-                placeholder={"Nome do jogador"}
-                placeholderTextColor={"#FF8C00"}
-                defaultValue={player}
-            />
-            <TouchableOpacity style={styles.button} onPress={handleAdd}>
-                <Text style={styles.plus}>+</Text>
-            </TouchableOpacity>
-        </View>
-    );
-}
 
 export default InputPlayer;

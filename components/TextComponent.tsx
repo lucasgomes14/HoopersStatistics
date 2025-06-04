@@ -1,5 +1,13 @@
 import {StyleSheet, Text, View} from "react-native";
 
+const textComponents = () => {
+    return (
+        <View style={styles.container}>
+            <Text style={styles.text}>Hoopers statistics</Text>
+        </View>
+    );
+}
+
 const styles = StyleSheet.create({
     container: {
         marginVertical: 30,
@@ -12,13 +20,5 @@ const styles = StyleSheet.create({
         fontFamily: "Luckiestguy",
     }
 })
-
-const textComponents = () => {
-    return (
-        <View style={styles.container}>
-            <Text style={styles.text}>Hoopers statistics</Text>
-        </View>
-    );
-}
 
 export default textComponents;

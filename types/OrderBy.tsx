@@ -1,0 +1,1 @@
+export type OrderBy = 'name' | 'points' | 'assist' | 'rebound';
