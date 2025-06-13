@@ -1,5 +1,5 @@
-import React, { useState, useEffect, useRef } from 'react';
-import {View, Text, StyleSheet, TouchableOpacity} from 'react-native';
+import React, {useEffect, useRef} from 'react';
+import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import FontAwesome5 from '@expo/vector-icons/FontAwesome5';
 import Fontisto from '@expo/vector-icons/Fontisto';
 

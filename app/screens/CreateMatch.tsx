@@ -1,15 +1,15 @@
 import Back from "../components/Back";
 import Logo from "../components/Logo";
-import {Alert, Animated, StyleSheet, Text, TouchableOpacity} from "react-native";
+import {Animated, StyleSheet, Text, TouchableOpacity} from "react-native";
 import Time from "@/app/components/Time";
 import Scoreboard from "@/app/components/Scoreboard";
 import AddTeams from "@/app/components/AddTeams";
-import ScrollView = Animated.ScrollView;
 import {Player} from "@/app/types/Player";
 import {useState} from "react";
 import {useMatches} from "@/app/contexts/MatchesContext";
 import {usePlayers} from "@/app/contexts/PlayersContext";
 import {Match} from "@/app/types/Match";
+import ScrollView = Animated.ScrollView;
 
 const styles = StyleSheet.create({
     container: {
