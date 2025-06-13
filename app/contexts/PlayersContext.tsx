@@ -1,18 +1,19 @@
 import React, {createContext, useContext} from 'react';
-import usePersistedState from '@/hooks/usePersistedState';
-import {Player} from "@/types/Player";
+import usePersistedState from '../hooks/usePersistedState';
+import {Player} from "../types/Player";
 
 interface PlayersContextType {
-    players: Player[],
+    players: Player[];
     addPlayer: (name: string) => void;
-    removePlayer: (id: number) => void,
+    removePlayer: (id: number) => void;
     updatePlayerStats: (
-        id: number,
         stats: {
-            points?: number;
-            assist?: number;
-            rebound?: number;
-        }
+            id: number;
+            points: number;
+            assist: number;
+            rebound: number;
+            games: number;
+        }[]
     ) => void;
     loading: boolean;
 }
@@ -29,7 +30,8 @@ export const PlayersProvider = ({ children }: { children: React.ReactNode }) => 
             name,
             points: 0,
             assist: 0,
-            rebound: 0
+            rebound: 0,
+            games: 0
         };
         setPlayers([...players, newPlayer]);
     };
@@ -38,24 +40,25 @@ export const PlayersProvider = ({ children }: { children: React.ReactNode }) => 
         setPlayers(players.filter(player => player.id !== id));
     };
 
-    const updatePlayerStats = (
-        id: number,
-        stats: {
-            points?: number;
-            assist?: number;
-            rebound?: number;
-        }
-    ) => {
-        setPlayers(players.map(player =>
-                player.id === id
-                    ? {
-                        ...player,
-                        points: stats.points !== undefined ? Math.max(0, stats.points) : player.points,
-                        assist: stats.assist !== undefined ? Math.max(0, stats.assist) : player.assist,
-                        rebound: stats.rebound !== undefined ? Math.max(0, stats.rebound) : player.rebound,
-                    }
-                    : player
-            )
+    const updatePlayerStats = (updatedStats: {
+        id: number;
+        points: number;
+        assist: number;
+        rebound: number;
+        games: number;
+    }[]) => {
+        setPlayers(players.map(player => {
+                const stat = updatedStats.find(p => p.id === player.id);
+                if (!stat) return player;
+
+                return {
+                    ...player,
+                    points: player.points + stat.points,
+                    assist: player.assist + stat.assist,
+                    rebound: player.rebound + stat.rebound,
+                    games: player.games + stat.games,
+                };
+            })
         );
     };
 

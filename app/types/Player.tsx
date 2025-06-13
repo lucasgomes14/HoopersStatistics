@@ -4,4 +4,5 @@ export interface Player {
     points: number;
     assist: number;
     rebound: number;
+    games: number;
 }

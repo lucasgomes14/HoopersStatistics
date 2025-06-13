@@ -1,6 +1,6 @@
 import {useMemo} from 'react';
-import {Player} from "@/types/Player";
-import {OrderBy} from "@/types/OrderBy";
+import {Player} from "../types/Player";
+import {OrderBy} from "../types/OrderBy";
 
 const useSortedPlayers = (players: Player[], orderBy: OrderBy) => {
 

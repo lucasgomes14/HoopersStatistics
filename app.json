@@ -1,51 +1,45 @@
 {
   "expo": {
     "name": "HoopersStatistics",
-    "slug": "statistic",
+    "slug": "HoopersStatistics",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/images/icon.png",
-    "scheme": "myapp",
+    "icon": "./app/assets/images/logo.png",
+    "scheme": "hoopersstatistics",
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
     "ios": {
-      "bundleIdentifier": "com.lucasgomes.hoopersstatistics",
       "supportsTablet": true
     },
     "android": {
-      "package": "com.lucasgomes.hoopersstatistics",
       "adaptiveIcon": {
-        "foregroundImage": "./assets/images/adaptive-icon.png",
-        "backgroundColor": "#ffffff"
-      }
+        "foregroundImage": "./app/assets/images/logo.png"
+      },
+      "package": "com.lucasgomes14.HoopersStatistics"
     },
     "web": {
       "bundler": "metro",
       "output": "static",
-      "favicon": "./assets/images/favicon.png"
+      "favicon": "./app/assets/images/logo.png"
     },
     "plugins": [
       "expo-router",
       [
         "expo-splash-screen",
         {
-          "image": "./assets/images/splash-icon.png",
+          "image": "./app/assets/images/logo.png",
           "imageWidth": 200,
-          "resizeMode": "contain",
-          "backgroundColor": "#ffffff"
+          "resizeMode": "contain"
         }
-      ],
-      "expo-font"
+      ]
     ],
     "experiments": {
       "typedRoutes": true
     },
     "extra": {
-      "router": {
-        "origin": false
-      },
+      "router": {},
       "eas": {
-        "projectId": "cfea1f4c-846f-423e-9337-3e7f47e22688"
+        "projectId": "bfa77f3c-f188-48ef-b9bd-6d2695fbdee4"
       }
     },
     "owner": "lucasgomes14"

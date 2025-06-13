@@ -1,4 +1,4 @@
-import {OrderBy} from "@/types/OrderBy";
+import {OrderBy} from "../types/OrderBy";
 import {Picker} from "@react-native-picker/picker";
 import {StyleSheet} from "react-native";
 
@@ -22,10 +22,10 @@ const OrderPicker = ({value, onChange}: {
 const styles = StyleSheet.create({
     filter: {
         backgroundColor: "#2c2929",
-        marginHorizontal: 10,
-        borderRadius: 15,
+        borderRadius: 38,
         color: "#FF8C00",
-        marginTop: 5,
+        marginHorizontal: 34,
+        marginBottom: 24
     },
 });
 

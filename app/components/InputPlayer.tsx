@@ -1,5 +1,6 @@
 import {StyleSheet, Text, TextInput, TouchableOpacity, View} from "react-native";
 import {useState} from "react";
+import AntDesign from '@expo/vector-icons/AntDesign';
 
 const InputPlayer = ({ onAdd }: { onAdd: (name: string) => void }) => {
 
@@ -22,7 +23,7 @@ const InputPlayer = ({ onAdd }: { onAdd: (name: string) => void }) => {
                 defaultValue={player}
             />
             <TouchableOpacity style={styles.button} onPress={handleAdd}>
-                <Text style={styles.plus}>+</Text>
+                <AntDesign name="plus" size={24} color="#D3D3D3" />
             </TouchableOpacity>
         </View>
     );
@@ -30,35 +31,35 @@ const InputPlayer = ({ onAdd }: { onAdd: (name: string) => void }) => {
 
 const styles = StyleSheet.create({
     container: {
-        width: "100%",
+        paddingHorizontal: 34,
         flexDirection: "row",
-        justifyContent: "space-between",
         alignItems: "center",
-        height: 40,
+        marginBottom: 24
     },
     input: {
+        height: 54,
         backgroundColor: "#2c2929",
         flex: 1,
-        marginHorizontal: 10,
-        borderRadius: 15,
+        marginRight: 10,
+        borderRadius: 38,
         padding: 6,
         borderWidth: 1,
         borderColor: "#e9531b",
         color: "#e9531b",
+        fontWeight: "semibold",
+        fontFamily: "Roboto-slab",
+        paddingLeft: 12,
+        fontSize: 12
     },
     button: {
-        width: 40,
-        height: 40,
+        width: 50,
+        height: 50,
         backgroundColor: "#e9531b",
         borderRadius: 15,
-        marginRight: 10,
         justifyContent: "center",
         alignItems: "center",
         color: "#000000",
     },
-    plus: {
-        fontSize: 20,
-    }
 })
 
 export default InputPlayer;
