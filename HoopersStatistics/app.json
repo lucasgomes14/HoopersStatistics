@@ -1,0 +1,51 @@
+{
+  "expo": {
+    "name": "HoopersStatistics",
+    "slug": "HoopersStatistics",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./app/assets/images/logo.png",
+    "scheme": "hoopersstatistics",
+    "userInterfaceStyle": "automatic",
+    "newArchEnabled": true,
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.lucasgomes14.HoopersStatistics",
+      "infoPlist": {
+        "ITSAppUsesNonExemptEncryption": false
+      }
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./app/assets/images/logo.png"
+      },
+      "package": "com.lucasgomes14.HoopersStatistics"
+    },
+    "web": {
+      "bundler": "metro",
+      "output": "static",
+      "favicon": "./app/assets/images/logo.png"
+    },
+    "plugins": [
+      "expo-router",
+      [
+        "expo-splash-screen",
+        {
+          "image": "./app/assets/images/logo.png",
+          "imageWidth": 200,
+          "resizeMode": "contain"
+        }
+      ]
+    ],
+    "experiments": {
+      "typedRoutes": true
+    },
+    "extra": {
+      "router": {},
+      "eas": {
+        "projectId": "bfa77f3c-f188-48ef-b9bd-6d2695fbdee4"
+      }
+    },
+    "owner": "lucasgomes14"
+  }
+}
